@@ -32,73 +32,145 @@ SAL: ~ ¡ ˝ ¯ £ ¸ ¼ ½ ¾ ˘ °  ̣ ÷ Ä Å É Ë Þ Ü Ú Í Ó Ö “ �
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+enum custom_keycodes {
+    CM_COPY = SAFE_RANGE,
+    CM_CUT = SAFE_RANGE,
+    CM_PSTE = SAFE_RANGE,
+
+    CM_EXC  = SAFE_RANGE, // ! check
+    CM_IEXC = SAFE_RANGE, // ¡ check
+    CM_AT   = SAFE_RANGE, // @
+    CM_NMRL = SAFE_RANGE, // #
+    CM_DLLR = SAFE_RANGE, // $
+    CM_PRCN = SAFE_RANGE, // %
+    CM_CRCM = SAFE_RANGE, // ^
+    CM_ANDP = SAFE_RANGE, // &
+    CM_ASTK = SAFE_RANGE, // *
+    CM_LPRN = SAFE_RANGE, // ( check
+    CM_RPRN = SAFE_RANGE, // ) check
+    CM_LBRC = SAFE_RANGE, // [ check
+    CM_RBRC = SAFE_RANGE, // ] check
+    CM_LCBR = SAFE_RANGE, // { check
+    CM_RCBR = SAFE_RANGE, // } check
+    CM_PLUS = SAFE_RANGE, // +
+    CM_EQAL = SAFE_RANGE, // =
+    CM_BTCK = SAFE_RANGE, // `
+    CM_VIRG = SAFE_RANGE, // ~
+    CM_QUOT = SAFE_RANGE, // '
+    CM_DQUO = SAFE_RANGE, // "
+    CM_DIER = SAFE_RANGE, // ¨
+    CM_SLSH = SAFE_RANGE, // / check
+    CM_QEST = SAFE_RANGE, // ? check
+    CM_IQES = SAFE_RANGE, // ¿ check
+    CM_BSLS = SAFE_RANGE, /* \ check */
+    CM_PIPE = SAFE_RANGE, // |
+    CM_GRAD = SAFE_RANGE, // °
+
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CM_COPY:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_C);
+            } else {
+                unregister_code(KC_C);
+                unregister_code(KC_LCTL);
+            }
+            return false;
+        case CM_CUT:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_X);
+            } else {
+                unregister_code(KC_X);
+                unregister_code(KC_LCTL);
+            }
+            return false;
+        case CM_PSTE:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_V);
+            } else {
+                unregister_code(KC_V);
+                unregister_code(KC_LCTL);
+            }
+            return false;
+        //? =====================================================================
+        case CM_ASTK:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_8);
+            } else {
+                unregister_code(KC_8);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        default:
+            return true;
+    }
+}
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  //? Capa dvorak:
+    //? Capa dvorak: ================================================================================================================================================================
+    [0] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     KC_P,       KC_Y,                               KC_F,       KC_G,       KC_C,       KC_R,       KC_L,       KC_BSPC,
+        KC_LSFT,    KC_A,       KC_O,       KC_E,       KC_U,       KC_I,                               KC_D,       KC_H,       KC_T,       KC_N,       KC_S,       RSFT_T(KC_DEL),
+        KC_LCTL,    KC_MINS,    KC_Q,       KC_J,       KC_K,       KC_X,                               KC_B,       KC_M,       KC_W,       KC_V,       KC_Z,       RCTL_T(KC_ESC),
+                                                        KC_LGUI,    MO(2),  KC_SPC,     RALT_T(KC_ENT), MO(3),      KC_LALT
+    ),
 
-  [0] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_SCLN, KC_COMM,  KC_DOT,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,    KC_L, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                         KC_D,    KC_H,    KC_T,    KC_N,    KC_S,RSFT_T(KC_DEL),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_MINS,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,RCTL_T(KC_ESC),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(2),  KC_SPC,  RALT_T(KC_ENT),MO(3),KC_LALT
-                                      //`--------------------------'  `--------------------------'
-  ),
+    //? capa qwerty =================================================================================================================================================================
+    [1] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,                               KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSPC,
+        KC_LSFT,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,                               KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    RSFT_T(KC_DEL),
+        KC_LCTL,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,                               KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_MINS,    RCTL_T(KC_ESC),
+                                                        KC_LGUI,    MO(2),  KC_SPC,     RALT_T(KC_ENT), MO(3),      KC_LALT
+    ),
 
-    //? capa qwerty
-  [1] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,RSFT_T(KC_DEL),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_MINS,RCTL_T(KC_ESC),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(2),  KC_SPC,  RALT_T(KC_ENT),MO(3),KC_LALT
-                                      //`--------------------------'  `--------------------------'
-  ),
+    //? capa movilidad y numeros ====================================================================================================================================================
+    [2] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_HOME,    KC_UP,      KC_END,     KC_PGUP,    KC_INS,                             XXXXXXX,    KC_7,       KC_8,       KC_9,       XXXXXXX,    KC_BSPC,
+        KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                            XXXXXXX,    KC_4,       KC_5,       KC_6,       XXXXXXX,    RSFT_T(KC_DEL),
+        KC_LCTL,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            KC_0,       KC_1,       KC_2,       KC_3,       XXXXXXX,    RCTL_T(KC_ESC),
+                                                        KC_LGUI,    _______, KC_SPC,    RALT_T(KC_ENT), MO(4),      KC_LALT
+    ),
+//! =================================================================================================================================================================================
+    //? capa movilidad y numeros ====================================================================================================================================================
+    [2] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_HOME,    KC_UP,      KC_END,     KC_PGUP,    KC_INS,                             CM_PLUS,    KC_7,       KC_8,       KC_9,       CM_SLSH,    KC_BSPC,
+        KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                            CM_EQAL,    KC_4,       KC_5,       KC_6,       CM_ASTK,    RSFT_T(KC_DEL),
+        KC_LCTL,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            KC_0,       KC_1,       KC_2,       KC_3,       KC_MINS,    RCTL_T(KC_ESC),
+                                                        KC_LGUI,    _______, KC_SPC,    RALT_T(KC_ENT), MO(4),      KC_LALT
+    ),
 
-  //? capa movilidad y numeros
-  [2] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,                      XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX,RSFT_T(KC_DEL),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_PGUP, KC_PGDN, KC_HOME,  KC_END,  KC_INS,                         KC_0,    KC_1,    KC_2,    KC_3, XXXXXXX,RCTL_T(KC_ESC),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,  RALT_T(KC_ENT),MO(4),KC_LALT
-                                      //`--------------------------'  `--------------------------'
-  ),
+    //? capa simbolos y numeros =====================================================================================================================================================
+    [3] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     CM_IEXC,    CM_EXC,                             CM_LPRN,    CM_RPRN,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BSPC,
+        KC_LSFT,    XXXXXXX,    XXXXXXX,    XXXXXXX,    CM_IQES,    CM_QEST,                            CM_LBRC,    CM_RBRC,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RSFT_T(KC_DEL),
+        KC_LCTL,    KC_MINS,    XXXXXXX,    XXXXXXX,    CM_BSLS,    CM_SLSH,                            CM_LCBR,    CM_RCBR,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RCTL_T(KC_ESC),
+                                                        KC_LGUI,    MO(4),  KC_SPC,     RALT_T(KC_ENT), _______,    KC_LALT
+    ),
+//! =================================================================================================================================================================================
 
-  //? capa simbolos y numeros
-  [3] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_SCLN, KC_COMM,  KC_DOT, KC_LBRC, KC_RBRC,                         KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, KC_QUOT,  KC_GRV,  KC_EQL,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,RSFT_T(KC_DEL),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_MINS, XXXXXXX, XXXXXXX, KC_BSLS, KC_SLSH,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,RCTL_T(KC_ESC),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, MO(4),  KC_SPC,  RALT_T(KC_ENT),_______,KC_LALT
-                                      //`--------------------------'  `--------------------------'
-  ),
+    //? capa simbolos y numeros =====================================================================================================================================================
+    [3] = LAYOUT_split_3x6_3(
+        KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     KC_LBRC,    KC_RBRC,                            KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_BSPC,
+        KC_LSFT,    XXXXXXX,    XXXXXXX,    KC_QUOT,    KC_GRV,     KC_EQL,                             KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       RSFT_T(KC_DEL),
+        KC_LCTL,    KC_MINS,    XXXXXXX,    XXXXXXX,    KC_BSLS,    KC_SLSH,                            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RCTL_T(KC_ESC),
+                                                        KC_LGUI,    MO(4),  KC_SPC,     RALT_T(KC_ENT), _______,    KC_LALT
+    ),
 
-  //? capa de control y funciones
-  [4] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        TG(1), XXXXXXX, KC_MSTP, XXXXXXX, KC_BRIU, KC_VOLU,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_BRID, KC_VOLD,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,                      KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, KC_WAKE, KC_SLEP,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,  RALT_T(KC_ENT),_______,KC_LALT
-                                      //`--------------------------'  `--------------------------'
-  ),
+    //? capa de control y funciones =================================================================================================================================================
+    [4] = LAYOUT_split_3x6_3(
+        TG(1),      XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BRIU,    KC_VOLU,                            KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BRID,    KC_VOLD,                            KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_MUTE,                            KC_PSCR,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_WAKE,    KC_SLEP,
+                                                        KC_LGUI,    _______, KC_SPC,    RALT_T(KC_ENT), _______,    KC_LALT
+    ),
 };
 
 #ifdef OLED_ENABLE
