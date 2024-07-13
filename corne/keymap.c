@@ -16,105 +16,42 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-
-NOR: ` 1 2 3 4 5 6 7 8 9 0 - = q w e r t y u i o p [ ] a s d f g h j k l ; ' \ \ z x c v b n m , . /
-
-SHI: ~ ! @ # $ % ^ & * ( ) _ + Q W E R T Y U I O P { } A S D F G H J K L : " | | Z X C V B N M < > ?
-
-ALT: ` ¹ ² ³ ¤ € ^ ̛  ˛ ‘ ’ ¥ × ä å é ë þ ü ú í ó ö « » á ß ð f g h ï œ ø ¶ ´ ¬ \ æ œ © ® b ñ µ ç ˙ ¿
-
-SAL: ~ ¡ ˝ ¯ £ ¸ ¼ ½ ¾ ˘ °  ̣ ÷ Ä Å É Ë Þ Ü Ú Í Ó Ö “ ” Á § Ð F G H Ï Œ Ø ° ¨ ¦ | Æ Œ ¢ ™ B Ñ µ Ç ˇ ̉
-
-
-*/
-
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
 enum custom_keycodes {
-    CM_COPY = SAFE_RANGE,
-    CM_CUT = SAFE_RANGE,
-    CM_PSTE = SAFE_RANGE,
-
-    CM_EXC  = SAFE_RANGE, // ! check
-    CM_IEXC = SAFE_RANGE, // ¡ check
-    CM_AT   = SAFE_RANGE, // @
-    CM_NMRL = SAFE_RANGE, // #
-    CM_DLLR = SAFE_RANGE, // $
-    CM_PRCN = SAFE_RANGE, // %
-    CM_CRCM = SAFE_RANGE, // ^
-    CM_ANDP = SAFE_RANGE, // &
-    CM_ASTK = SAFE_RANGE, // *
-    CM_LPRN = SAFE_RANGE, // ( check
-    CM_RPRN = SAFE_RANGE, // ) check
-    CM_LBRC = SAFE_RANGE, // [ check
-    CM_RBRC = SAFE_RANGE, // ] check
-    CM_LCBR = SAFE_RANGE, // { check
-    CM_RCBR = SAFE_RANGE, // } check
-    CM_PLUS = SAFE_RANGE, // +
-    CM_EQAL = SAFE_RANGE, // =
-    CM_BTCK = SAFE_RANGE, // `
-    CM_VIRG = SAFE_RANGE, // ~
-    CM_QUOT = SAFE_RANGE, // '
-    CM_DQUO = SAFE_RANGE, // "
-    CM_DIER = SAFE_RANGE, // ¨
-    CM_SLSH = SAFE_RANGE, // / check
-    CM_QEST = SAFE_RANGE, // ? check
-    CM_IQES = SAFE_RANGE, // ¿ check
-    CM_BSLS = SAFE_RANGE, /* \ check */
-    CM_PIPE = SAFE_RANGE, // |
-    CM_GRAD = SAFE_RANGE, // °
+    CM_EXC = SAFE_RANGE,
+    CM_IEXC,
+    CM_AT,
+    CM_NMRL,
+    CM_DLLR,
+    CM_PRCN,
+    CM_CRCM,
+    CM_ANDP,
+    CM_ASTK,
+    CM_LPRN,
+    CM_RPRN,
+    CM_LBRC,
+    CM_RBRC,
+    CM_LCBR,
+    CM_RCBR,
+    CM_PLUS,
+    CM_EQAL,
+    CM_BTCK,
+    CM_VIRG,
+    CM_QUOT,
+    CM_DQUO,
+    CM_DIER,
+    CM_SLSH,
+    CM_QEST,
+    CM_IQES,
+    CM_BSLS,
+    CM_PIPE,
+    CM_GRAD,
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case CM_COPY:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                register_code(KC_C);
-            } else {
-                unregister_code(KC_C);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case CM_CUT:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                register_code(KC_X);
-            } else {
-                unregister_code(KC_X);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case CM_PSTE:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                register_code(KC_V);
-            } else {
-                unregister_code(KC_V);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        //? =====================================================================
-        case CM_ASTK:
-            if (record->event.pressed) {
-                register_code(KC_LSFT);
-                register_code(KC_8);
-            } else {
-                unregister_code(KC_8);
-                unregister_code(KC_LSFT);
-            }
-            return false;
-        default:
-            return true;
-    }
-}
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
     //? Capa dvorak: ================================================================================================================================================================
     [0] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     KC_P,       KC_Y,                               KC_F,       KC_G,       KC_C,       KC_R,       KC_L,       KC_BSPC,
@@ -122,7 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_MINS,    KC_Q,       KC_J,       KC_K,       KC_X,                               KC_B,       KC_M,       KC_W,       KC_V,       KC_Z,       RCTL_T(KC_ESC),
                                                         KC_LGUI,    MO(2),  KC_SPC,     RALT_T(KC_ENT), MO(3),      KC_LALT
     ),
-
     //? capa qwerty =================================================================================================================================================================
     [1] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,                               KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSPC,
@@ -130,40 +66,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,                               KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_MINS,    RCTL_T(KC_ESC),
                                                         KC_LGUI,    MO(2),  KC_SPC,     RALT_T(KC_ENT), MO(3),      KC_LALT
     ),
-
-    //? capa movilidad y numeros ====================================================================================================================================================
-    [2] = LAYOUT_split_3x6_3(
-        KC_TAB,     KC_HOME,    KC_UP,      KC_END,     KC_PGUP,    KC_INS,                             XXXXXXX,    KC_7,       KC_8,       KC_9,       XXXXXXX,    KC_BSPC,
-        KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                            XXXXXXX,    KC_4,       KC_5,       KC_6,       XXXXXXX,    RSFT_T(KC_DEL),
-        KC_LCTL,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            KC_0,       KC_1,       KC_2,       KC_3,       XXXXXXX,    RCTL_T(KC_ESC),
-                                                        KC_LGUI,    _______, KC_SPC,    RALT_T(KC_ENT), MO(4),      KC_LALT
-    ),
-//! =================================================================================================================================================================================
     //? capa movilidad y numeros ====================================================================================================================================================
     [2] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_HOME,    KC_UP,      KC_END,     KC_PGUP,    KC_INS,                             CM_PLUS,    KC_7,       KC_8,       KC_9,       CM_SLSH,    KC_BSPC,
         KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                            CM_EQAL,    KC_4,       KC_5,       KC_6,       CM_ASTK,    RSFT_T(KC_DEL),
-        KC_LCTL,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            KC_0,       KC_1,       KC_2,       KC_3,       KC_MINS,    RCTL_T(KC_ESC),
+        KC_LCTL,    KC_CUT,     KC_COPY,    KC_PSTE,    XXXXXXX,    XXXXXXX,                            KC_0,       KC_1,       KC_2,       KC_3,       KC_MINS,    RCTL_T(KC_ESC),
                                                         KC_LGUI,    _______, KC_SPC,    RALT_T(KC_ENT), MO(4),      KC_LALT
     ),
-
     //? capa simbolos y numeros =====================================================================================================================================================
     [3] = LAYOUT_split_3x6_3(
-        KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     CM_IEXC,    CM_EXC,                             CM_LPRN,    CM_RPRN,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BSPC,
-        KC_LSFT,    XXXXXXX,    XXXXXXX,    XXXXXXX,    CM_IQES,    CM_QEST,                            CM_LBRC,    CM_RBRC,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RSFT_T(KC_DEL),
-        KC_LCTL,    KC_MINS,    XXXXXXX,    XXXXXXX,    CM_BSLS,    CM_SLSH,                            CM_LCBR,    CM_RCBR,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RCTL_T(KC_ESC),
+        KC_TAB,     CM_AT,      CM_DIER,    CM_VIRG,    CM_IEXC,    CM_EXC,                             CM_LPRN,    CM_RPRN,    CM_ANDP,    CM_PIPE,    CM_CRCM,    KC_BSPC,
+        KC_LSFT,    CM_BTCK,    CM_DQUO,    CM_QUOT,    CM_IQES,    CM_QEST,                            CM_LBRC,    CM_RBRC,    CM_EQAL,    CM_PLUS,    CM_ASTK,    RSFT_T(KC_DEL),
+        KC_LCTL,    CM_GRAD,    CM_DLLR,    CM_NMRL,    CM_BSLS,    CM_SLSH,                            CM_LCBR,    CM_RCBR,    KC_DOT,     KC_MINS,    CM_PRCN,    RCTL_T(KC_ESC),
                                                         KC_LGUI,    MO(4),  KC_SPC,     RALT_T(KC_ENT), _______,    KC_LALT
     ),
-//! =================================================================================================================================================================================
-
-    //? capa simbolos y numeros =====================================================================================================================================================
-    [3] = LAYOUT_split_3x6_3(
-        KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     KC_LBRC,    KC_RBRC,                            KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_BSPC,
-        KC_LSFT,    XXXXXXX,    XXXXXXX,    KC_QUOT,    KC_GRV,     KC_EQL,                             KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       RSFT_T(KC_DEL),
-        KC_LCTL,    KC_MINS,    XXXXXXX,    XXXXXXX,    KC_BSLS,    KC_SLSH,                            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RCTL_T(KC_ESC),
-                                                        KC_LGUI,    MO(4),  KC_SPC,     RALT_T(KC_ENT), _______,    KC_LALT
-    ),
-
     //? capa de control y funciones =================================================================================================================================================
     [4] = LAYOUT_split_3x6_3(
         TG(1),      XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BRIU,    KC_VOLU,                            KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
@@ -176,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    return OLED_ROTATION_180;
   }
   return rotation;
 }
@@ -279,9 +195,257 @@ bool oled_task_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
-  return true;
+    if (record->event.pressed) {
+            set_keylog(keycode, record);
+    }
+    switch (keycode) {
+        case CM_EXC:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_1);
+            } else {
+                unregister_code(KC_1);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_IEXC:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_ALGR);
+                register_code(KC_1);
+            } else {
+                unregister_code(KC_1);
+                register_code(KC_ALGR);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_AT:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_2);
+            } else {
+                unregister_code(KC_2);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_NMRL:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_3);
+            } else {
+                unregister_code(KC_3);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_DLLR:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_4);
+            } else {
+                unregister_code(KC_4);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_PRCN:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_5);
+            } else {
+                unregister_code(KC_5);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_CRCM:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_6);
+            } else {
+                unregister_code(KC_6);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_ANDP:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_7);
+            } else {
+                unregister_code(KC_7);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_ASTK:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_8);
+            } else {
+                unregister_code(KC_8);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_LPRN:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_9);
+            } else {
+                unregister_code(KC_9);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_RPRN:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_0);
+            } else {
+                unregister_code(KC_0);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_LBRC:
+            if (record->event.pressed) {
+                register_code(KC_LBRC);
+            } else {
+                unregister_code(KC_LBRC);
+            }
+            return false;
+        case CM_RBRC:
+            if (record->event.pressed) {
+                register_code(KC_RBRC);
+            } else {
+                unregister_code(KC_RBRC);
+            }
+            return false;
+        case CM_LCBR:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_LBRC);
+            } else {
+                unregister_code(KC_LBRC);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_RCBR:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_RBRC);
+            } else {
+                unregister_code(KC_RBRC);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_PLUS:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_EQL);
+            } else {
+                unregister_code(KC_EQL);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_EQAL:
+            if (record->event.pressed) {
+                register_code(KC_EQL);
+            } else {
+                unregister_code(KC_EQL);
+            }
+            return false;
+        case CM_BTCK:
+            if (record->event.pressed) {
+                register_code(KC_GRV);
+            } else {
+                unregister_code(KC_GRV);
+            }
+            return false;
+        case CM_VIRG:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_GRV);
+            } else {
+                unregister_code(KC_GRV);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_QUOT:
+            if (record->event.pressed) {
+                register_code(KC_QUOT);
+            } else {
+                unregister_code(KC_QUOT);
+            }
+            return false;
+        case CM_DQUO:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_QUOT);
+            } else {
+                unregister_code(KC_QUOT);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_DIER:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_ALGR);
+                register_code(KC_QUOT);
+            } else {
+                unregister_code(KC_QUOT);
+                unregister_code(KC_ALGR);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_SLSH:
+            if (record->event.pressed) {
+                register_code(KC_SLSH);
+            } else {
+                unregister_code(KC_SLSH);
+            }
+            return false;
+        case CM_QEST:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_SLSH);
+            } else {
+                unregister_code(KC_SLSH);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_IQES:
+            if (record->event.pressed) {
+                register_code(KC_ALGR);
+                register_code(KC_SLSH);
+            } else {
+                unregister_code(KC_SLSH);
+                unregister_code(KC_ALGR);
+            }
+            return false;
+        case CM_BSLS:
+            if (record->event.pressed) {
+                register_code(KC_NUBS);
+            } else {
+                unregister_code(KC_NUBS);
+            }
+            return false;
+        case CM_PIPE:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_NUBS);
+            } else {
+                unregister_code(KC_NUBS);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case CM_GRAD:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_ALGR);
+                register_code(KC_SCLN);
+            } else {
+                unregister_code(KC_SCLN);
+                unregister_code(KC_ALGR);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        default:
+            return true;
+    }
+    return true;
 }
-#endif // OLED_ENABLE
+#endif
