@@ -36,37 +36,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //? Capa dvorak: =====================================================================================================================================================
     [0] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_SCLN,    KC_COMM,    KC_DOT,     KC_P,       KC_Y,                            KC_F,       KC_G,       KC_C,       KC_R,       KC_L,       KC_BSPC,
-        KC_LSFT,    KC_A,       KC_O,       KC_E,       KC_U,       KC_I,                            KC_D,       KC_H,       KC_T,       KC_N,       KC_S,       KC_ENT,
+        KC_LSFT,    KC_A,       KC_O,       KC_E,       KC_U,       KC_I,                            KC_D,       KC_H,       KC_T,       KC_N,       KC_S,       KC_LALT,
         KC_LCTL,    KC_MINS,    KC_Q,       KC_J,       KC_K,       KC_X,                            KC_B,       KC_M,       KC_W,       KC_V,       KC_Z,       KC_ESC,
-                                                        KC_LALT,    MO(2),   KC_LGUI,        KC_SPC, MO(3),      KC_ALGR
+                                                        KC_LGUI,    MO(2),   KC_SPC,         KC_ENT, MO(3),      KC_ALGR
     ),
     //? capa qwerty ======================================================================================================================================================
     [1] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,                            KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSPC,
-        KC_LSFT,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,                            KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_ENT,
+        KC_LSFT,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,                            KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_LALT,
         KC_LCTL,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,                            KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_MINS,    KC_ESC,
-                                                        KC_LALT,    MO(2),   KC_LGUI,        KC_SPC, MO(3),      KC_ALGR
+                                                        KC_LGUI,    MO(2),   KC_SPC,         KC_ENT, MO(3),      KC_ALGR
     ),
     //? capa movilidad y numeros =========================================================================================================================================
     [2] = LAYOUT_split_3x6_3(
         KC_TAB,     KC_HOME,    KC_UP,      KC_END,     KC_PGUP,    KC_INS,                          CM_PLUS,    KC_7,       KC_8,       KC_9,       CM_SLSH,    KC_DEL,
-        KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                         CM_EQAL,    KC_4,       KC_5,       KC_6,       CM_ASTK,    KC_ENT,
+        KC_LSFT,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,    XXXXXXX,                         CM_EQAL,    KC_4,       KC_5,       KC_6,       CM_ASTK,    KC_LALT,
         KC_LCTL,    KC_CUT,     KC_COPY,    KC_PSTE,    XXXXXXX,    XXXXXXX,                         KC_0,       KC_1,       KC_2,       KC_3,       KC_MINS,    KC_ESC,
-                                                        KC_LALT,    _______, KC_LGUI,        KC_SPC, MO(4),      KC_ALGR
+                                                        KC_LGUI,    _______, KC_SPC,         KC_ENT, MO(4),      KC_ALGR
     ),
     //? capa simbolos y numeros ==========================================================================================================================================
     [3] = LAYOUT_split_3x6_3(
         KC_TAB,     CM_AT,      CM_DIER,    CM_VIRG,    CM_IEXC,    CM_EXC,                          CM_LPRN,    CM_RPRN,    CM_ANDP,    CM_PIPE,    CM_CRCM,    KC_DEL,
-        KC_LSFT,    CM_BTCK,    CM_DQUO,    CM_QUOT,    CM_IQES,    CM_QEST,                         CM_LBRC,    CM_RBRC,    CM_EQAL,    CM_PLUS,    CM_ASTK,    KC_ENT,
+        KC_LSFT,    CM_BTCK,    CM_DQUO,    CM_QUOT,    CM_IQES,    CM_QEST,                         CM_LBRC,    CM_RBRC,    CM_EQAL,    CM_PLUS,    CM_ASTK,    KC_LALT,
         KC_LCTL,    CM_GRAD,    CM_DLLR,    CM_NMRL,    CM_BSLS,    CM_SLSH,                         CM_LCBR,    CM_RCBR,    KC_DOT,     KC_MINS,    CM_PRCN,    KC_ESC,
-                                                        KC_LALT,    MO(4),   KC_LGUI,        KC_SPC, _______,    KC_ALGR
+                                                        KC_LGUI,    MO(4),   KC_SPC,         KC_ENT, _______,    KC_ALGR
     ),
     //? capa de control y funciones ======================================================================================================================================
     [4] = LAYOUT_split_3x6_3(
         TG(1),      XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BRIU,    KC_VOLU,                         KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
         KC_RSFT,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BRID,    KC_VOLD,                         KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
         KC_RCTL,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_MUTE,                         KC_PSCR,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_WAKE,    KC_SLEP,
-                                                        KC_LALT,    _______, KC_LGUI,        KC_SPC, _______,    KC_ALGR
+                                                        KC_LGUI,    _______, KC_SPC,         KC_ENT, _______,    KC_ALGR
     ),
 };
 
